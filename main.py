@@ -55,7 +55,8 @@ def downloadFile(url, outfile, retries=10):
             break
         except Exception as e:
             logger.info("Error during downloading %s (retry %d/%d), error %s", url, retry, retries, e)
-            os.remove(outfile)
+            if os.path.exists(outfile):
+                os.remove(outfile)
     logger.info("Download success in retry %d", retry)
 
 download_sess = requests.Session()
